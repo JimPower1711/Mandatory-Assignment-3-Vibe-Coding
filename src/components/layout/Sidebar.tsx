@@ -62,9 +62,6 @@ export function Sidebar({ currentView, onSelect }: SidebarProps) {
                 <Icon size={17} />
               </span>
               <span className="flex-1">{item.label}</span>
-              {item.view === 'analytics' && (
-                <span className="rounded-md bg-white/[0.04] px-1.5 py-0.5 text-[9px] uppercase tracking-wider text-slate-600">Soon</span>
-              )}
             </button>
           )
         })}

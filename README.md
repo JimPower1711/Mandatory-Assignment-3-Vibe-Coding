@@ -15,7 +15,8 @@ A modern, local-first personal finance dashboard built for a university Generati
 - Savings goal management: create, edit and delete goals
 - Contributions, withdrawals and savings activity history
 - Live dashboard updates after savings changes
-- Phase placeholder for analytics
+- Period-based analytics for cash flow, spending and savings activity
+- Data-derived category breakdowns, financial insights and monthly summaries
 
 ## Run locally
 
