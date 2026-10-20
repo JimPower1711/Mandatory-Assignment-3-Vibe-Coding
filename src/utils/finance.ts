@@ -26,7 +26,6 @@ export function getReportingMonth(transactions: Transaction[]) {
     0,
   )
 }
-
 export function getDashboardMetrics(data: FinanceData) {
   const reportingDate = new Date(getReportingMonth(data.transactions))
   const reportKey = reportingDate.toISOString().slice(0, 7)
@@ -78,6 +77,7 @@ export function getMonthlyChartData(transactions: Transaction[]) {
     .sort(([a], [b]) => a.localeCompare(b))
     .slice(-6)
     .map(([key, value]) => ({
+      key,
       month: new Intl.DateTimeFormat('en-GB', { month: 'short' }).format(new Date(`${key}-01T12:00:00`)),
       ...value,
     }))

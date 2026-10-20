@@ -92,36 +92,36 @@ export function Transactions({ transactions, onAdd, onUpdate, onDelete }: Transa
     <div className="mx-auto max-w-[1500px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8 xl:px-10">
       <header className="mb-7 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-violet-400">Money activity</p>
-          <h1 className="text-2xl font-semibold tracking-[-0.035em] text-white sm:text-3xl">Transactions</h1>
-          <p className="mt-2 text-sm text-slate-500">Keep every krone categorized and accounted for.</p>
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-accent">Money activity</p>
+          <h1 className="text-3xl font-semibold tracking-[-0.045em] text-foreground sm:text-4xl">Transactions</h1>
+          <p className="mt-2 text-sm text-muted">Keep every krone categorized and accounted for.</p>
         </div>
-        <button type="button" onClick={openCreate} className="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-violet-500 px-4 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(139,92,246,0.2)] transition-all hover:-translate-y-0.5 hover:bg-violet-400">
+        <button type="button" onClick={openCreate} className="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-accent px-4 text-sm font-semibold text-midnight transition-colors duration-200 hover:bg-accent-hover">
           <CirclePlus size={17} /> Add transaction
         </button>
       </header>
 
       <section className="mb-4 grid gap-3 sm:grid-cols-3">
-        <Summary label="Filtered income" value={totals.income} icon={ArrowDownLeft} tone="emerald" />
-        <Summary label="Filtered expenses" value={totals.expenses} icon={ArrowUpRight} tone="rose" />
-        <Summary label="Net cash flow" value={totals.income - totals.expenses} icon={WalletCards} tone="violet" />
+        <Summary label="Filtered income" value={totals.income} icon={ArrowDownLeft} tone="positive" />
+        <Summary label="Filtered expenses" value={totals.expenses} icon={ArrowUpRight} tone="negative" />
+        <Summary label="Net cash flow" value={totals.income - totals.expenses} icon={WalletCards} tone="neutral" />
       </section>
 
       <section className="card-surface overflow-hidden">
-        <div className="border-b border-white/[0.06] p-4 sm:p-5">
+        <div className="border-b border-border p-4 sm:p-5">
           <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
             <div className="relative w-full xl:max-w-sm">
-              <Search className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600" size={17} />
+              <Search className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" size={17} />
               <input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search transactions" className="form-control pl-10" aria-label="Search transactions" />
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <div className="flex rounded-xl bg-black/20 p-1" aria-label="Filter by transaction type">
+              <div className="flex rounded-xl bg-midnight/55 p-1" aria-label="Filter by transaction type">
                 {(['all', 'income', 'expense'] as TypeFilter[]).map((type) => (
-                  <button key={type} type="button" onClick={() => setType(type)} className={`flex-1 rounded-lg px-3.5 py-2 text-xs font-semibold capitalize transition-colors sm:flex-none ${typeFilter === type ? 'bg-white/[0.08] text-white shadow-sm' : 'text-slate-600 hover:text-slate-300'}`}>{type}</button>
+                  <button key={type} type="button" onClick={() => setType(type)} className={`flex-1 rounded-lg px-3.5 py-2 text-xs font-semibold capitalize transition-colors sm:flex-none ${typeFilter === type ? 'bg-accent-muted text-accent ring-1 ring-accent/25' : 'text-muted hover:text-foreground'}`}>{type}</button>
                 ))}
               </div>
               <div className="relative">
-                <Filter className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600" size={15} />
+                <Filter className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" size={15} />
                 <select value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value)} className="form-control min-w-44 pl-10 text-xs font-semibold" aria-label="Filter by category">
                   <option value="all">All categories</option>
                   {allCategories.map((category) => <option key={category} value={category}>{category}</option>)}
@@ -131,46 +131,46 @@ export function Transactions({ transactions, onAdd, onUpdate, onDelete }: Transa
           </div>
         </div>
 
-        <div className="hidden grid-cols-[minmax(220px,1.4fr)_minmax(130px,0.7fr)_100px_130px_84px] gap-4 border-b border-white/[0.055] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-700 md:grid">
+        <div className="hidden grid-cols-[minmax(220px,1.4fr)_minmax(130px,0.7fr)_100px_130px_84px] gap-4 border-b border-border px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted md:grid">
           <span>Description</span><span>Category</span><span>Date</span><span className="text-right">Amount</span><span />
         </div>
 
         {filteredTransactions.length ? (
           <div>
             {filteredTransactions.map((transaction) => (
-              <div key={transaction.id} className="group flex items-center gap-3 border-b border-white/[0.05] px-4 py-4 last:border-b-0 hover:bg-white/[0.02] sm:px-5 md:grid md:grid-cols-[minmax(220px,1.4fr)_minmax(130px,0.7fr)_100px_130px_84px] md:gap-4">
+              <div key={transaction.id} className="group flex items-center gap-3 border-b border-border px-4 py-4 last:border-b-0 hover:bg-accent/5 sm:px-5 md:grid md:grid-cols-[minmax(220px,1.4fr)_minmax(130px,0.7fr)_100px_130px_84px] md:gap-4">
                 <div className="flex min-w-0 items-center gap-3">
-                  <span className={`grid size-10 shrink-0 place-items-center rounded-xl ${transaction.type === 'income' ? 'bg-emerald-400/10 text-emerald-300' : 'bg-rose-400/[0.08] text-rose-300'}`}>
+                  <span className={`grid size-10 shrink-0 place-items-center rounded-xl ${transaction.type === 'income' ? 'bg-positive/10 text-positive' : 'bg-danger/10 text-danger'}`}>
                     {transaction.type === 'income' ? <ArrowDownLeft size={17} /> : <ArrowUpRight size={17} />}
                   </span>
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-medium text-slate-200">{transaction.description}</p>
-                    <p className="mt-0.5 text-xs capitalize text-slate-600 md:hidden">{transaction.category} · {formatDate(transaction.date)}</p>
+                    <p className="truncate text-sm font-medium text-foreground">{transaction.description}</p>
+                    <p className="mt-0.5 text-xs capitalize text-muted md:hidden">{transaction.category} · {formatDate(transaction.date)}</p>
                   </div>
                 </div>
-                <span className="hidden text-sm text-slate-500 md:block">{transaction.category}</span>
-                <span className="hidden text-sm text-slate-500 md:block">{formatDate(transaction.date)}</span>
-                <p className={`ml-auto text-right text-sm font-semibold tabular-nums md:ml-0 ${transaction.type === 'income' ? 'text-emerald-300' : 'text-slate-200'}`}>
+                <span className="hidden text-sm text-muted md:block">{transaction.category}</span>
+                <span className="hidden text-sm text-muted md:block">{formatDate(transaction.date)}</span>
+                <p className={`ml-auto text-right text-sm font-semibold tabular-nums md:ml-0 ${transaction.type === 'income' ? 'text-positive' : 'text-danger'}`}>
                   {transaction.type === 'income' ? '+' : '−'}{formatNok(transaction.amount)}
                 </p>
                 <div className="flex items-center justify-end gap-1">
-                  <button type="button" onClick={() => openEdit(transaction)} className="grid size-8 place-items-center rounded-lg text-slate-600 transition-colors hover:bg-white/[0.06] hover:text-slate-200" aria-label={`Edit ${transaction.description}`}><Pencil size={14} /></button>
-                  <button type="button" onClick={() => setDeleting(transaction)} className="grid size-8 place-items-center rounded-lg text-slate-600 transition-colors hover:bg-rose-400/10 hover:text-rose-300" aria-label={`Delete ${transaction.description}`}><Trash2 size={14} /></button>
+                  <button type="button" onClick={() => openEdit(transaction)} className="grid size-8 place-items-center rounded-lg text-muted transition-colors hover:bg-muted/10 hover:text-foreground" aria-label={`Edit ${transaction.description}`}><Pencil size={14} /></button>
+                  <button type="button" onClick={() => setDeleting(transaction)} className="grid size-8 place-items-center rounded-lg text-muted transition-colors hover:bg-danger/10 hover:text-danger" aria-label={`Delete ${transaction.description}`}><Trash2 size={14} /></button>
                 </div>
               </div>
             ))}
           </div>
         ) : (
           <div className="px-6 py-16 text-center">
-            <span className="mx-auto grid size-12 place-items-center rounded-2xl bg-white/[0.04] text-slate-600"><Search size={20} /></span>
-            <h2 className="mt-4 text-base font-semibold text-slate-300">No transactions found</h2>
-            <p className="mt-1 text-sm text-slate-600">Try changing your filters or add a new transaction.</p>
-            {hasFilters && <button type="button" onClick={clearFilters} className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-violet-300 hover:text-violet-200"><X size={14} /> Clear filters</button>}
+            <span className="mx-auto grid size-12 place-items-center rounded-2xl bg-muted/10 text-muted"><Search size={20} /></span>
+            <h2 className="mt-4 text-base font-semibold text-foreground">No transactions found</h2>
+            <p className="mt-1 text-sm text-muted">Try changing your filters or add a new transaction.</p>
+            {hasFilters && <button type="button" onClick={clearFilters} className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-accent transition-opacity hover:opacity-75"><X size={14} /> Clear filters</button>}
           </div>
         )}
       </section>
 
-      <p className="mt-4 text-right text-xs text-slate-700">Showing {filteredTransactions.length} of {transactions.length} transactions</p>
+      <p className="mt-4 text-right text-xs text-muted">Showing {filteredTransactions.length} of {transactions.length} transactions</p>
 
       {formOpen && (
         <TransactionFormModal transaction={editing} onClose={() => { setFormOpen(false); setEditing(null) }} onSave={handleSave} />
@@ -190,13 +190,19 @@ interface SummaryProps {
   label: string
   value: number
   icon: typeof ArrowDownLeft
-  tone: 'emerald' | 'rose' | 'violet'
+  tone: 'positive' | 'negative' | 'neutral'
 }
 
 const summaryTones = {
-  emerald: 'bg-emerald-400/10 text-emerald-300',
-  rose: 'bg-rose-400/10 text-rose-300',
-  violet: 'bg-violet-400/10 text-violet-300',
+  positive: 'bg-positive/10 text-positive',
+  negative: 'bg-danger/10 text-danger',
+  neutral: 'bg-muted/10 text-muted',
+}
+
+const summaryValueTones = {
+  positive: 'text-positive',
+  negative: 'text-danger',
+  neutral: 'text-foreground',
 }
 
 function Summary({ label, value, icon: Icon, tone }: SummaryProps) {
@@ -204,8 +210,8 @@ function Summary({ label, value, icon: Icon, tone }: SummaryProps) {
     <article className="card-surface flex items-center gap-4 p-4">
       <span className={`grid size-10 place-items-center rounded-xl ${summaryTones[tone]}`}><Icon size={17} /></span>
       <div className="min-w-0">
-        <p className="text-xs text-slate-600">{label}</p>
-        <p className="mt-1 truncate text-lg font-semibold tracking-tight text-white">{formatNok(value)}</p>
+        <p className="text-xs text-muted">{label}</p>
+        <p className={`mt-1 truncate text-lg font-semibold tracking-tight tabular-nums ${summaryValueTones[tone]}`}>{formatNok(value)}</p>
       </div>
     </article>
   )

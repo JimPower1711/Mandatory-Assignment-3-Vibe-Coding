@@ -7,34 +7,40 @@ interface MetricCardProps {
   helper: string
   trend?: number
   icon: LucideIcon
-  accent: 'emerald' | 'rose' | 'cyan'
+  accent: 'positive' | 'negative' | 'neutral'
+}
+const accentClasses = {
+  positive: 'bg-positive/10 text-positive ring-positive/15',
+  negative: 'bg-danger/10 text-danger ring-danger/15',
+  neutral: 'bg-muted/10 text-muted ring-muted/15',
 }
 
-const accentClasses = {
-  emerald: 'bg-emerald-400/10 text-emerald-300 ring-emerald-400/15',
-  rose: 'bg-rose-400/10 text-rose-300 ring-rose-400/15',
-  cyan: 'bg-cyan-400/10 text-cyan-300 ring-cyan-400/15',
+const valueClasses = {
+  positive: 'text-positive',
+  negative: 'text-danger',
+  neutral: 'text-foreground',
 }
 
 export function MetricCard({ label, value, helper, trend, icon: Icon, accent }: MetricCardProps) {
-  const positive = trend !== undefined && trend >= 0
+  const trendUp = trend !== undefined && trend >= 0
+  const favorableTrend = trend !== undefined && (accent === 'negative' ? trend <= 0 : trend >= 0)
   return (
-    <article className="card-surface group p-5 transition-transform duration-300 hover:-translate-y-0.5">
+    <article className="card-surface group p-5 transition-colors duration-200 hover:border-accent/30 xl:col-span-2">
       <div className="flex items-center justify-between">
-        <p className="text-sm font-medium text-slate-500">{label}</p>
+        <p className="text-sm font-medium text-muted">{label}</p>
         <span className={`grid size-9 place-items-center rounded-xl ring-1 ${accentClasses[accent]}`}>
           <Icon size={17} />
         </span>
       </div>
-      <p className="mt-4 text-2xl font-semibold tracking-[-0.035em] text-white">{value}</p>
+      <p className={`mt-4 text-2xl font-semibold tracking-[-0.035em] tabular-nums ${valueClasses[accent]}`}>{value}</p>
       <div className="mt-2 flex items-center gap-1.5 text-xs">
         {trend !== undefined && (
-          <span className={`inline-flex items-center gap-0.5 font-semibold ${positive ? 'text-emerald-400' : 'text-rose-400'}`}>
-            {positive ? <ArrowUpRight size={13} /> : <ArrowDownRight size={13} />}
+          <span className={`inline-flex items-center gap-0.5 font-semibold ${favorableTrend ? 'text-positive' : 'text-danger'}`}>
+            {trendUp ? <ArrowUpRight size={13} /> : <ArrowDownRight size={13} />}
             {Math.abs(trend).toFixed(1)}%
           </span>
         )}
-        <span className="text-slate-600">{helper}</span>
+        <span className="text-muted">{helper}</span>
       </div>
     </article>
   )

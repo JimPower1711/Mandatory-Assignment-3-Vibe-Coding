@@ -59,14 +59,14 @@ export function TransactionFormModal({ transaction, onClose, onSave }: Transacti
   }
 
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-black/70 p-4 backdrop-blur-sm" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-      <section className="my-auto w-full max-w-lg overflow-hidden rounded-3xl border border-white/[0.09] bg-[#11151d] shadow-[0_30px_90px_rgba(0,0,0,0.6)]" role="dialog" aria-modal="true" aria-labelledby="transaction-form-title">
-        <div className="flex items-start justify-between border-b border-white/[0.06] px-6 py-5">
+    <div className="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-midnight/85 p-4" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
+      <section className="my-auto w-full max-w-lg overflow-hidden rounded-2xl border border-border bg-elevated" role="dialog" aria-modal="true" aria-labelledby="transaction-form-title">
+        <div className="flex items-start justify-between border-b border-border px-6 py-5">
           <div>
             <p className="section-kicker">{transaction ? 'Update entry' : 'New entry'}</p>
-            <h2 id="transaction-form-title" className="mt-1 text-xl font-semibold tracking-tight text-white">{transaction ? 'Edit transaction' : 'Add transaction'}</h2>
+            <h2 id="transaction-form-title" className="mt-1 text-xl font-semibold tracking-tight text-foreground">{transaction ? 'Edit transaction' : 'Add transaction'}</h2>
           </div>
-          <button type="button" onClick={onClose} className="grid size-9 place-items-center rounded-xl text-slate-500 transition-colors hover:bg-white/[0.06] hover:text-white" aria-label="Close dialog">
+          <button type="button" onClick={onClose} className="grid size-9 place-items-center rounded-xl text-muted transition-colors hover:bg-muted/10 hover:text-foreground" aria-label="Close dialog">
             <X size={18} />
           </button>
         </div>
@@ -74,11 +74,11 @@ export function TransactionFormModal({ transaction, onClose, onSave }: Transacti
         <form onSubmit={handleSubmit} className="space-y-5 p-6">
           <fieldset>
             <legend className="field-label">Transaction type</legend>
-            <div className="mt-2 grid grid-cols-2 rounded-xl bg-black/20 p-1">
-              <button type="button" onClick={() => changeType('expense')} className={`flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-semibold transition-all ${type === 'expense' ? 'bg-rose-400/12 text-rose-300 shadow-sm ring-1 ring-rose-400/15' : 'text-slate-600 hover:text-slate-300'}`}>
+            <div className="mt-2 grid grid-cols-2 rounded-xl bg-midnight/55 p-1">
+              <button type="button" onClick={() => changeType('expense')} className={`flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-semibold transition-colors ${type === 'expense' ? 'bg-danger/12 text-danger ring-1 ring-danger/20' : 'text-muted hover:text-foreground'}`}>
                 <ArrowUpRight size={16} /> Expense
               </button>
-              <button type="button" onClick={() => changeType('income')} className={`flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-semibold transition-all ${type === 'income' ? 'bg-emerald-400/12 text-emerald-300 shadow-sm ring-1 ring-emerald-400/15' : 'text-slate-600 hover:text-slate-300'}`}>
+              <button type="button" onClick={() => changeType('income')} className={`flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-semibold transition-colors ${type === 'income' ? 'bg-positive/10 text-positive ring-1 ring-positive/20' : 'text-muted hover:text-foreground'}`}>
                 <ArrowDownLeft size={16} /> Income
               </button>
             </div>
@@ -87,9 +87,9 @@ export function TransactionFormModal({ transaction, onClose, onSave }: Transacti
           <div>
             <label htmlFor="amount" className="field-label">Amount</label>
             <div className="relative mt-2">
-              <CircleDollarSign className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600" size={17} />
+              <CircleDollarSign className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" size={17} />
               <input id="amount" inputMode="decimal" type="number" min="0.01" step="0.01" value={amount} onChange={(event) => setAmount(event.target.value)} placeholder="0" className="form-control pl-10 pr-12 text-base font-semibold" autoFocus />
-              <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-600">NOK</span>
+              <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-semibold text-muted">NOK</span>
             </div>
           </div>
 
@@ -103,7 +103,7 @@ export function TransactionFormModal({ transaction, onClose, onSave }: Transacti
             <div>
               <label htmlFor="date" className="field-label">Date</label>
               <div className="relative mt-2">
-                <CalendarDays className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600" size={16} />
+                <CalendarDays className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" size={16} />
                 <input id="date" type="date" value={date} onChange={(event) => setDate(event.target.value)} className="form-control pl-10" />
               </div>
             </div>
@@ -114,11 +114,11 @@ export function TransactionFormModal({ transaction, onClose, onSave }: Transacti
             <input id="description" type="text" maxLength={80} value={description} onChange={(event) => setDescription(event.target.value)} placeholder={type === 'expense' ? 'e.g. Weekly groceries' : 'e.g. Monthly salary'} className="form-control mt-2" />
           </div>
 
-          {error && <p className="rounded-xl border border-rose-400/15 bg-rose-400/[0.07] px-3.5 py-2.5 text-xs text-rose-300">{error}</p>}
+          {error && <p className="rounded-xl border border-danger/20 bg-danger/[0.07] px-3.5 py-2.5 text-xs text-danger">{error}</p>}
 
-          <div className="flex items-center justify-end gap-2 border-t border-white/[0.06] pt-5">
-            <button type="button" onClick={onClose} className="rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-400 transition-colors hover:bg-white/[0.05] hover:text-white">Cancel</button>
-            <button type="submit" className="rounded-xl bg-violet-500 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_25px_rgba(139,92,246,0.2)] transition-all hover:-translate-y-0.5 hover:bg-violet-400">
+          <div className="flex items-center justify-end gap-2 border-t border-border pt-5">
+            <button type="button" onClick={onClose} className="rounded-xl px-4 py-2.5 text-sm font-semibold text-muted transition-colors hover:bg-muted/10 hover:text-foreground">Cancel</button>
+            <button type="submit" className="rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-midnight transition-colors duration-200 hover:bg-accent-hover">
               {transaction ? 'Save changes' : 'Add transaction'}
             </button>
           </div>

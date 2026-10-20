@@ -51,53 +51,53 @@ export function SavingsTransferModal({ goal, type, availableBalance, onClose, on
   }
 
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-black/70 p-4 backdrop-blur-sm" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-      <section className="my-auto w-full max-w-md overflow-hidden rounded-3xl border border-white/[0.09] bg-[#11151d] shadow-[0_30px_90px_rgba(0,0,0,0.6)]" role="dialog" aria-modal="true" aria-labelledby="transfer-title">
-        <div className="flex items-start justify-between border-b border-white/[0.06] px-6 py-5">
+    <div className="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-midnight/85 p-4" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
+      <section className="my-auto w-full max-w-md overflow-hidden rounded-2xl border border-border bg-elevated" role="dialog" aria-modal="true" aria-labelledby="transfer-title">
+        <div className="flex items-start justify-between border-b border-border px-6 py-5">
           <div>
-            <p className={`mb-1 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.16em] ${contributing ? 'text-emerald-400' : 'text-amber-400'}`}>
+            <p className={`mb-1 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.16em] ${contributing ? 'text-positive' : 'text-danger'}`}>
               {contributing ? <ArrowDownLeft size={13} /> : <ArrowUpRight size={13} />}
               {contributing ? 'Add money' : 'Withdraw money'}
             </p>
-            <h2 id="transfer-title" className="text-xl font-semibold tracking-tight text-white">{goal.name}</h2>
+            <h2 id="transfer-title" className="text-xl font-semibold tracking-tight text-foreground">{goal.name}</h2>
           </div>
-          <button type="button" onClick={onClose} className="grid size-9 place-items-center rounded-xl text-slate-500 hover:bg-white/[0.06] hover:text-white" aria-label="Close dialog"><X size={18} /></button>
+          <button type="button" onClick={onClose} className="grid size-9 place-items-center rounded-xl text-muted hover:bg-muted/10 hover:text-foreground" aria-label="Close dialog"><X size={18} /></button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5 p-6">
-          <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] px-4 py-3">
-            <div className="flex items-center justify-between text-xs"><span className="text-slate-500">Currently saved</span><span className="font-semibold text-white">{formatNok(goal.currentAmount)}</span></div>
-            {contributing && <div className="mt-2 flex items-center justify-between text-xs"><span className="text-slate-600">Available balance</span><span className="text-slate-400">{formatNok(availableBalance)}</span></div>}
-            {!contributing && <div className="mt-2 flex items-center justify-between text-xs"><span className="text-slate-600">Available to withdraw</span><span className="text-slate-400">{formatNok(goal.currentAmount)}</span></div>}
+          <div className="rounded-xl border border-border bg-midnight/35 px-4 py-3">
+            <div className="flex items-center justify-between text-xs"><span className="text-muted">Currently saved</span><span className="font-semibold text-foreground tabular-nums">{formatNok(goal.currentAmount)}</span></div>
+            {contributing && <div className="mt-2 flex items-center justify-between text-xs"><span className="text-muted">Available balance</span><span className="text-muted">{formatNok(availableBalance)}</span></div>}
+            {!contributing && <div className="mt-2 flex items-center justify-between text-xs"><span className="text-muted">Available to withdraw</span><span className="text-muted">{formatNok(goal.currentAmount)}</span></div>}
           </div>
 
           <div>
             <label htmlFor="transfer-amount" className="field-label">Amount</label>
             <div className="relative mt-2">
-              <Coins className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600" size={17} />
+              <Coins className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" size={17} />
               <input id="transfer-amount" type="number" min="1" max={contributing ? Math.max(0, availableBalance) : goal.currentAmount} step="1" value={amount} onChange={(event) => setAmount(event.target.value)} placeholder="0" className="form-control pl-10 pr-12 text-base font-semibold" autoFocus />
-              <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-600">NOK</span>
+              <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-semibold text-muted">NOK</span>
             </div>
           </div>
 
           <div>
             <label htmlFor="transfer-date" className="field-label">Date</label>
             <div className="relative mt-2">
-              <CalendarDays className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600" size={16} />
+              <CalendarDays className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" size={16} />
               <input id="transfer-date" type="date" value={date} onChange={(event) => setDate(event.target.value)} className="form-control pl-10" />
             </div>
           </div>
 
           <div>
-            <label htmlFor="transfer-note" className="field-label">Note <span className="font-normal text-slate-700">(optional)</span></label>
+            <label htmlFor="transfer-note" className="field-label">Note <span className="font-normal text-muted">(optional)</span></label>
             <input id="transfer-note" value={note} onChange={(event) => setNote(event.target.value)} maxLength={70} placeholder={contributing ? 'e.g. Monthly transfer' : 'e.g. Unexpected expense'} className="form-control mt-2" />
           </div>
 
-          {error && <p className="rounded-xl border border-rose-400/15 bg-rose-400/[0.07] px-3.5 py-2.5 text-xs text-rose-300">{error}</p>}
+          {error && <p className="rounded-xl border border-danger/20 bg-danger/[0.07] px-3.5 py-2.5 text-xs text-danger">{error}</p>}
 
-          <div className="flex items-center justify-end gap-2 border-t border-white/[0.06] pt-5">
-            <button type="button" onClick={onClose} className="rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-400 hover:bg-white/[0.05] hover:text-white">Cancel</button>
-            <button type="submit" className={`rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 ${contributing ? 'bg-emerald-500 hover:bg-emerald-400' : 'bg-amber-500 hover:bg-amber-400'}`}>
+          <div className="flex items-center justify-end gap-2 border-t border-border pt-5">
+            <button type="button" onClick={onClose} className="rounded-xl px-4 py-2.5 text-sm font-semibold text-muted hover:bg-muted/10 hover:text-foreground">Cancel</button>
+            <button type="submit" className={`rounded-xl px-5 py-2.5 text-sm font-semibold text-midnight duration-200 ${contributing ? 'bg-accent transition-colors hover:bg-accent-hover' : 'bg-danger transition-opacity hover:opacity-90'}`}>
               {contributing ? 'Add to goal' : 'Withdraw'}
             </button>
           </div>

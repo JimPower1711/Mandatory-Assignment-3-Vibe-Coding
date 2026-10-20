@@ -10,6 +10,35 @@ import type {
 
 const STORAGE_KEY = 'wealth-tracker:data:v1'
 
+const SAVINGS_COLOR_MIGRATION: Record<string, string> = {
+  '#8b5cf6': '#9B7AFF',
+  '#22d3ee': '#B39AFF',
+  '#f59e0b': '#7E63D3',
+  '#34d399': '#9B7AFF',
+  '#fb7185': '#7E63D3',
+  '#60a5fa': '#B39AFF',
+  '#d9fa72': '#9B7AFF',
+  '#a5b2a8': '#B39AFF',
+  '#f5f6f0': '#7E63D3',
+  '#4f8cff': '#9B7AFF',
+  '#94a3b8': '#B39AFF',
+  '#f0a18b': '#7E63D3',
+  '#f5f7fb': '#6A55AD',
+  '#9b7aff': '#9B7AFF',
+  '#b39aff': '#B39AFF',
+  '#7e63d3': '#7E63D3',
+  '#6a55ad': '#6A55AD',
+  '#9695aa': '#B39AFF',
+  '#ff766c': '#7E63D3',
+  '#f5f5f8': '#6A55AD',
+  '#b8cb7b': '#9B7AFF',
+  '#7f9185': '#B39AFF',
+}
+
+function normalizeSavingsColor(color: string) {
+  return SAVINGS_COLOR_MIGRATION[color.toLowerCase()] ?? '#9B7AFF'
+}
+
 function loadFinanceData(): FinanceData {
   try {
     const saved = localStorage.getItem(STORAGE_KEY)
@@ -17,7 +46,8 @@ function loadFinanceData(): FinanceData {
       const parsed = JSON.parse(saved) as Partial<FinanceData>
       const normalized: FinanceData = {
         transactions: Array.isArray(parsed.transactions) ? parsed.transactions : demoData.transactions,
-        savingsGoals: Array.isArray(parsed.savingsGoals) ? parsed.savingsGoals : demoData.savingsGoals,
+        savingsGoals: (Array.isArray(parsed.savingsGoals) ? parsed.savingsGoals : demoData.savingsGoals)
+          .map((goal) => ({ ...goal, color: normalizeSavingsColor(goal.color) })),
         savingsActivities: Array.isArray(parsed.savingsActivities)
           ? parsed.savingsActivities
           : demoData.savingsActivities,
