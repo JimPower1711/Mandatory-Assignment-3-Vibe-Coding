@@ -4,7 +4,7 @@ Wealth Tracker er en personlig økonomi-app som hjelper brukeren med å holde ov
 
 ## Demo
 
-[Se appen på VibeOff](LIM-INN-VIBEOFF-LENKEN-HER)
+[Se appen på VibeOff](https://vibeoff.ai/build/wealth-tracker-6f7cc7d8?k=uybT6VefAOjS7JP8_MmG7g)
 
 ## Kildekode
 
