@@ -42,4 +42,4 @@ export interface FinanceData {
   savingsActivities: SavingsActivity[]
 }
 
-export type AppView = 'dashboard' | 'transactions' | 'goals' | 'analytics'
+export type AppView = 'dashboard' | 'transactions' | 'goals' | 'analytics' | 'account'

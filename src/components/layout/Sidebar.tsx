@@ -1,9 +1,9 @@
 import {
   BarChart3,
+  ChevronRight,
   LayoutDashboard,
   PiggyBank,
   ReceiptText,
-  Settings,
   Sparkles,
 } from 'lucide-react'
 import type { AppView } from '../../types/finance'
@@ -67,22 +67,23 @@ export function Sidebar({ currentView, onSelect }: SidebarProps) {
 
       <button
         type="button"
-        className="mb-4 flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-muted transition-colors hover:bg-elevated hover:text-foreground"
+        onClick={() => onSelect('account')}
+        aria-label="Open personal account"
+        className={`group rounded-[14px] border p-3 text-left transition-colors duration-200 ${
+          currentView === 'account'
+            ? 'border-accent/30 bg-accent-muted'
+            : 'border-border bg-card hover:border-accent/30 hover:bg-elevated'
+        }`}
       >
-        <span className="grid size-8 place-items-center"><Settings size={17} /></span>
-        Settings
-      </button>
-
-      <div className="rounded-[14px] border border-border bg-card p-3">
         <div className="flex items-center gap-3">
           <span className="grid size-9 place-items-center rounded-full bg-accent-muted text-xs font-bold text-accent-hover">NH</span>
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-medium text-foreground">Nora Hansen</p>
             <p className="truncate text-xs text-muted">Personal account</p>
           </div>
-          <span className="size-2 rounded-full bg-positive" aria-label="Online" />
+          <ChevronRight size={16} className="text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" />
         </div>
-      </div>
+      </button>
     </aside>
   )
 }

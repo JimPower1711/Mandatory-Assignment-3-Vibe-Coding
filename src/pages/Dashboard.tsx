@@ -34,7 +34,7 @@ export function Dashboard({ data, onNavigate }: DashboardProps) {
       </header>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-12">
-        <BalanceCard balance={metrics.availableBalance} savings={metrics.savingsTotal} chartData={chartData} savingsActivities={data.savingsActivities} />
+        <BalanceCard balance={metrics.availableBalance} savings={metrics.savingsTotal} chartData={chartData} savingsActivities={data.savingsActivities} onViewAccounts={() => onNavigate('account')} />
         <MetricCard label="Monthly income" value={formatNok(metrics.monthlyIncome)} helper="received this month" icon={TrendingUp} accent="positive" />
         <MetricCard label="Monthly expenses" value={formatNok(metrics.monthlyExpenses)} helper="compared with last month" trend={metrics.expenseChange} icon={ReceiptText} accent="negative" />
         <MetricCard label="Savings rate" value={`${metrics.savingsRate.toFixed(1)}%`} helper="of this month's income" icon={Landmark} accent="neutral" />

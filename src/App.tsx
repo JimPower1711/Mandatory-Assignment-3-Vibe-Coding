@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { AppShell } from './components/layout/AppShell'
 import { useFinanceData } from './hooks/useFinanceData'
 import { Analytics } from './pages/Analytics'
+import { PersonalAccount } from './pages/PersonalAccount'
 import { Dashboard } from './pages/Dashboard'
 import { SavingsGoals } from './pages/SavingsGoals'
 import { Transactions } from './pages/Transactions'
@@ -27,7 +28,9 @@ function App() {
       ? <Transactions transactions={data.transactions} onAdd={addTransaction} onUpdate={updateTransaction} onDelete={deleteTransaction} />
       : currentView === 'goals'
         ? <SavingsGoals goals={data.savingsGoals} activities={data.savingsActivities} availableBalance={getDashboardMetrics(data).availableBalance} onAdd={addSavingsGoal} onUpdate={updateSavingsGoal} onDelete={deleteSavingsGoal} onTransfer={transferSavings} />
-        : <Analytics data={data} />
+        : currentView === 'analytics'
+          ? <Analytics data={data} />
+          : <PersonalAccount onBack={() => setCurrentView('dashboard')} />
 
   return (
     <AppShell currentView={currentView} onSelect={setCurrentView}>

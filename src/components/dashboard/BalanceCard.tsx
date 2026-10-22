@@ -8,8 +8,9 @@ interface BalanceCardProps {
   savings: number
   chartData: Array<{ key: string; month: string; income: number; expenses: number }>
   savingsActivities: SavingsActivity[]
+  onViewAccounts: () => void
 }
-export function BalanceCard({ balance, savings, chartData, savingsActivities }: BalanceCardProps) {
+export function BalanceCard({ balance, savings, chartData, savingsActivities, onViewAccounts }: BalanceCardProps) {
   const contributionByMonth = new Map<string, number>()
   for (const activity of savingsActivities) {
     const key = activity.date.slice(0, 7)
@@ -41,7 +42,7 @@ export function BalanceCard({ balance, savings, chartData, savingsActivities }: 
             <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted">Set aside in goals</p>
             <p className="mt-1 text-sm font-semibold text-foreground tabular-nums">{formatNok(savings)}</p>
           </div>
-          <button type="button" className="inline-flex items-center gap-2 rounded-xl border border-border bg-elevated px-3.5 py-2 text-xs font-semibold text-foreground transition-colors hover:border-accent/30 hover:text-accent-hover">
+          <button type="button" onClick={onViewAccounts} className="inline-flex items-center gap-2 rounded-xl border border-border bg-elevated px-3.5 py-2 text-xs font-semibold text-foreground transition-colors hover:border-accent/30 hover:text-accent-hover">
             View accounts <ArrowUpRight size={14} />
           </button>
         </div>
